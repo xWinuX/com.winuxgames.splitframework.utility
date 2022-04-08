@@ -1,0 +1,14 @@
+{
+  "name": "com.winuxgames.splitframework.utility",
+  "version": "1.0.0",
+  "displayName": "Split Framework Utility",
+  "description": "Utility for Split Apart Games",
+  "unity": "2021.2",
+  "dependencies": {},
+  "keywords": [],
+  "author": {
+    "name": "WinuXGames",
+    "email": "support@winuxgames.com",
+    "url": "https://www.winuxgames.com"
+  }
+}
