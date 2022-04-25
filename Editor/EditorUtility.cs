@@ -1,4 +1,5 @@
 ﻿using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 namespace WinuXGames.SplitFramework.Utility.Editor
@@ -9,8 +10,8 @@ namespace WinuXGames.SplitFramework.Utility.Editor
         public const string ScriptableObjectsPath      = AssetPath + "/ScriptableObjects";
         public const string CharacterScriptableObjects = ScriptableObjectsPath + "/Characters/";
         public const string DefaultLightningDataPath   = ScriptableObjectsPath + "/Environment/Default.asset";
-        public const string BaseScenePath              = AssetPath+ "/Scenes/Base.unity";
-        
+        public const string BaseScenePath              = AssetPath + "/Scenes/Base.unity";
+
         public static string AbsoluteToRelative(string path)
         {
             path = path.Replace('\\', '/');
@@ -20,11 +21,19 @@ namespace WinuXGames.SplitFramework.Utility.Editor
             return "";
         }
 
+        public static void InstantiatePrefabFromResources(string path)
+        {
+            Object     o          = Resources.Load(path);
+            GameObject gameObject = (GameObject)PrefabUtility.InstantiatePrefab(o);
+            if (Selection.gameObjects.Length > 0) { gameObject.transform.SetParent(Selection.gameObjects[0].transform); }
+
+            EditorSceneManager.MarkAllScenesDirty();
+        }
+
         public static bool PathIsRelative(string path) => path.StartsWith("Assets");
 
         public static T MenuCommandContextToType<T>(MenuCommand command) where T : Object => (T)command.context;
-        
-        public static T LoadAsset<T>(string path) where T : Object => (T)EditorGUIUtility.Load(PathIsRelative(path) ? path : AbsoluteToRelative(path));
 
+        public static T LoadAsset<T>(string path) where T : Object => (T)EditorGUIUtility.Load(PathIsRelative(path) ? path : AbsoluteToRelative(path));
     }
 }
