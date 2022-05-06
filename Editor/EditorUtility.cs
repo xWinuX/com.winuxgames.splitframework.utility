@@ -6,11 +6,18 @@ namespace WinuXGames.SplitFramework.Utility.Editor
 {
     public static class EditorUtility
     {
-        public const string AssetPath                  = "Assets/_SplitApart";
-        public const string ScriptableObjectsPath      = AssetPath + "/ScriptableObjects";
-        public const string CharacterScriptableObjects = ScriptableObjectsPath + "/Characters/";
-        public const string DefaultLightningDataPath   = ScriptableObjectsPath + "/Environment/Default.asset";
-        public const string BaseScenePath              = AssetPath + "/Scenes/Base.unity";
+        public static string AssetPath                  => "Assets/_" + GetProjectName();
+        public static string ScriptableObjectsPath      => AssetPath + "/ScriptableObjects";
+        public static string CharacterScriptableObjects => ScriptableObjectsPath + "/Characters/";
+        public static string DefaultLightningDataPath   => ScriptableObjectsPath + "/Environment/Default.asset";
+        public static string BaseScenePath              => AssetPath + "/Scenes/Base.unity";
+
+        public static string GetProjectName()
+        {
+            string[] s           = Application.dataPath.Split('/');
+            string   projectName = s[^2];
+            return projectName;
+        }
 
         public static string AbsoluteToRelative(string path)
         {
@@ -25,7 +32,7 @@ namespace WinuXGames.SplitFramework.Utility.Editor
         {
             Object     o          = Resources.Load(path);
             GameObject gameObject = (GameObject)PrefabUtility.InstantiatePrefab(o);
-            if (Selection.gameObjects.Length > 0) { gameObject.transform.SetParent(Selection.gameObjects[0].transform); }
+            if (Selection.gameObjects.Length > 0) { gameObject.transform.SetParent(Selection.gameObjects[0].transform, false); }
 
             EditorSceneManager.MarkAllScenesDirty();
         }
