@@ -6,9 +6,16 @@ namespace WinuXGames.SplitFramework.Utility
 {
     public static class CoroutineUtility
     {
+        public static readonly YieldInstruction WaitForEndOfFrameInstruction = new WaitForEndOfFrame();
+
+        public static IEnumerator WaitForEndOfFrame(Action action)
+        {
+            yield return WaitForEndOfFrameInstruction;
+        }
+        
         public static IEnumerator WaitForOneFrame(Action action)
         {
-            yield return new WaitForEndOfFrame();
+            yield return null;
             action.Invoke();
         }
     }
