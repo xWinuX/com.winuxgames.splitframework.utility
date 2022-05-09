@@ -11,6 +11,7 @@ namespace WinuXGames.SplitFramework.Utility
         public static IEnumerator WaitForEndOfFrame(Action action)
         {
             yield return WaitForEndOfFrameInstruction;
+            action.Invoke();
         }
         
         public static IEnumerator WaitForOneFrame(Action action)
