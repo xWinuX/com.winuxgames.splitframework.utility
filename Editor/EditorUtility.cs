@@ -14,8 +14,8 @@ namespace WinuXGames.SplitFramework.Utility.Editor
 
         public static string GetProjectName()
         {
-            string[] s           = Application.dataPath.Split('/');
-            string   projectName = s[^2];
+            string[] split       = Application.dataPath.Split('/');
+            string   projectName = split[^2];
             return projectName;
         }
 
